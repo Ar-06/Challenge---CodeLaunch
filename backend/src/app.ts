@@ -3,6 +3,7 @@ import express, { type Application, type Response } from "express";
 import morgan from "morgan";
 import { corsMiddleware } from "./middleware/cors.ts";
 import { RouterAuth } from "./routes/user.route.ts";
+import { RouterTask } from "./routes/task.route.ts";
 
 export const app: Application = express();
 
@@ -14,6 +15,7 @@ app.use(cookieParser());
 app.use(corsMiddleware());
 
 app.use("/auth", RouterAuth);
+app.use("/tasks", RouterTask);
 
 app.get("/", (res: Response) => {
   res.send("Servidor de tareas corriendo");
