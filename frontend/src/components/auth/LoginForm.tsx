@@ -1,5 +1,8 @@
-import { ArrowRight, Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { toast } from "@pheralb/toast";
+import { ArrowRight, Eye, EyeOff, Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useAuth } from "../../context/auth/useAuth";
+import type { LoginUser } from "../../types/user.type";
 import { Button } from "../ui/button";
 import {
   Card,
@@ -18,6 +21,32 @@ interface LoginFormProps {
 
 export const LoginForm = ({ onToogleToRegister }: LoginFormProps) => {
   const [showPassword, setShowPassword] = useState(false);
+  const { loading, login, errors, clearErrors } = useAuth();
+
+  const [form, setForm] = useState<LoginUser>({
+    email: "",
+    password: "",
+  });
+
+  useEffect(() => {
+    if (errors.length) {
+      errors.forEach((err) => toast.error({ text: err }));
+    }
+  }, [errors]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setForm((s) => ({ ...s, [id]: value }));
+    if (errors.length) clearErrors();
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.email || !form.password) {
+      toast.error({ text: "Faltan campos" });
+    }
+    await login(form);
+  };
 
   return (
     <Card className="shadow-xl border-0 bg-card/80 backdrop-blur-sm">
@@ -31,7 +60,7 @@ export const LoginForm = ({ onToogleToRegister }: LoginFormProps) => {
       </CardHeader>
 
       <CardContent className="space-y-6">
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="space-y-2">
             <Label htmlFor="email" className="text-sm font-medium">
               Correo electrónico
@@ -40,6 +69,8 @@ export const LoginForm = ({ onToogleToRegister }: LoginFormProps) => {
               id="email"
               type="email"
               placeholder="jhondoe@gmail.com"
+              value={form.email ?? ""}
+              onChange={handleChange}
               className="h-11 transition-all duration-300 focus:ring-2 focus:ring-blue-500/20 border-slate-200 focus:border-blue-500"
               required
             />
@@ -54,6 +85,8 @@ export const LoginForm = ({ onToogleToRegister }: LoginFormProps) => {
                 id="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="********"
+                value={form.password ?? ""}
+                onChange={handleChange}
                 className="h-11 transition-all duration-300 focus:ring-2 focus:ring-blue-500/20 border-slate-200 focus:border-blue-500"
                 required
               />
@@ -77,10 +110,17 @@ export const LoginForm = ({ onToogleToRegister }: LoginFormProps) => {
             type="submit"
             className="w-full h-11 font-medium bg-blue-600 hover:bg-blue-700 transition-all duration-200 hover:shadow-lg cursor-pointer"
           >
-            <div className="flex items-center space-x-2">
-              <span>Inciar Sesión</span>
-              <ArrowRight className="w-4 h-4" />
-            </div>
+            {loading ? (
+              <>
+                <Loader2 className="animate-spin w-4 h-4 mr-2" />
+                Cargando...
+              </>
+            ) : (
+              <div className="flex items-center space-x-2">
+                <span>Inciar Sesión</span>
+                <ArrowRight className="w-4 h-4" />
+              </div>
+            )}
           </Button>
         </form>
 
