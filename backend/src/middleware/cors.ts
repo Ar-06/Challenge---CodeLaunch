@@ -1,6 +1,6 @@
 import cors from "cors";
 
-const ACCEPTED_ORIGIN = ["http://localhost:5173"];
+const ACCEPTED_ORIGIN = ["http://localhost:5173/"];
 
 interface CorsConfig {
   acceptedOrigin?: string[];

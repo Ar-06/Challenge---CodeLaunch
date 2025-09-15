@@ -12,5 +12,5 @@ export const RouterAuth: ReturnType<typeof Router> = Router();
 
 RouterAuth.post("/register", validateSchema(registerSchema), register);
 RouterAuth.post("/logout", logout);
-RouterAuth.get("/login", validateSchema(loginSchema), login);
+RouterAuth.post("/login", validateSchema(loginSchema), login);
 RouterAuth.get("/verify", verifyToken);
