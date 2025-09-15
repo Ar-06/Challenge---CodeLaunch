@@ -1,3 +1,12 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AuthPage } from "../pages/AuthPage";
+
 export const AppRoutes = () => {
-  return <h1>Hola</h1>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AuthPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 };
