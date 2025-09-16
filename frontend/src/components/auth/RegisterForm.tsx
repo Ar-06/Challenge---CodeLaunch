@@ -1,7 +1,7 @@
 import { toast } from "@pheralb/toast";
 import { Label } from "@radix-ui/react-label";
 import { ArrowLeft, ArrowRight, Eye, EyeOff, Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { RegisterUser } from "src/types/user.type";
 import { useAuth } from "../../context/auth/useAuth";
 import { Button } from "../ui/button";
@@ -42,6 +42,12 @@ export const RegisterForm = ({ onToggleToLogin }: RegisterFromProps) => {
     }
     await register(form);
   };
+
+  useEffect(() => {
+      if (errors.length) {
+        errors.forEach((err) => toast.error({ text: err }));
+      }
+    }, [errors]);
 
   return (
     <Card className="shadow-xl border-0 bg-card/80 backdrop-blur-sm">

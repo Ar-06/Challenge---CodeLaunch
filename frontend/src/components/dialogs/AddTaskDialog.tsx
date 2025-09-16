@@ -1,7 +1,7 @@
 import { toast } from "@pheralb/toast";
 import confetti from "canvas-confetti";
 import { Loader2, Plus } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { CreateTask } from "src/types/task.type";
 import { useTask } from "../../context/tasks/useTask";
 import { Button } from "../ui/button";
@@ -30,7 +30,6 @@ export const AddTaskDialog = () => {
   const [open, setOpen] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log("enviando tarea al backend");
     e.preventDefault();
     if (!form.title || !form.description) {
       toast.error({ text: "Faltan campos" });
@@ -44,6 +43,12 @@ export const AddTaskDialog = () => {
       confetti();
     }
   };
+
+  useEffect(() => {
+    if (errors.length) {
+      errors.forEach((err) => toast.error({ text: err }));
+    }
+  }, [errors]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -72,7 +77,7 @@ export const AddTaskDialog = () => {
               <Label htmlFor="title">Título</Label>
               <Input
                 id="title"
-                placeholder="Estudiar geometría"
+                placeholder="Tarea #1"
                 value={form.title ?? ""}
                 onChange={handleChange}
                 required
@@ -101,11 +106,11 @@ export const AddTaskDialog = () => {
             <Button
               type="submit"
               className="font-medium bg-blue-600 hover:bg-blue-700 transition-all duration-200 hover:shadow-lg cursor-pointer"
+              disabled={loadingCreate}
             >
               {loadingCreate ? (
                 <>
                   <Loader2 className="animate-spin w-4 h-4 mr-2" />
-                  Cargando...
                 </>
               ) : (
                 "Agregar"

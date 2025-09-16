@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useTask } from "../../context/tasks/useTask";
 
 import { Skeleton } from "../ui/skeleton";
-import { AddTaskDialog } from "./AddTaskDialog";
+import { AddTaskDialog } from "../dialogs/AddTaskDialog";
 import { Task } from "./Task";
 
 export const TaskList = () => {

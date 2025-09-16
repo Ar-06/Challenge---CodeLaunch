@@ -1,7 +1,7 @@
-import { Pencil, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useTask } from "../../context/tasks/useTask";
-import { Button } from "../ui/button";
+import { DeleteDialogTask } from "../dialogs/DeleteTaskDialog";
+import { UpdateTaskDialog } from "../dialogs/UpdateTaskDialog";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
 
@@ -13,16 +13,12 @@ interface TaskProps {
 }
 
 export const Task = ({ id, title, description, completed }: TaskProps) => {
-  const { toggleTask, deleteTask } = useTask();
+  const { toggleTask } = useTask();
   const [disabled, setDisabled] = useState(false);
 
   const handleToggle = (checked: boolean) => {
     toggleTask(id, checked);
     setDisabled(!disabled);
-  };
-
-  const handleDelete = () => {
-    deleteTask(id);
   };
 
   return (
@@ -51,22 +47,12 @@ export const Task = ({ id, title, description, completed }: TaskProps) => {
             </CardTitle>
           </div>
           <div className="flex space-x-2">
-            <Button
-              size="sm"
-              variant="ghost"
-              className="h-8 w-8 p-0 cursor-pointer"
-              disabled={disabled ? true : false}
-            >
-              <Pencil className="h-4 w-4 text-blue-500" />
-            </Button>
-            <Button
-              size="sm"
-              variant="ghost"
-              className="h-8 w-8 p-0 cursor-pointer"
-              onClick={handleDelete}
-            >
-              <Trash2 className="w-4 h-4 text-red-500" />
-            </Button>
+            <UpdateTaskDialog
+              id={id}
+              task={{ id, title, description, completed }}
+              disabled={disabled}
+            />
+            <DeleteDialogTask id={id} />
           </div>
         </div>
       </CardHeader>
