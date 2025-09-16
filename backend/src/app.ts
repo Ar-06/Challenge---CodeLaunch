@@ -1,5 +1,9 @@
 import cookieParser from "cookie-parser";
-import express, { type Application, type Response } from "express";
+import express, {
+  type Application,
+  type Request,
+  type Response,
+} from "express";
 import morgan from "morgan";
 import { corsMiddleware } from "./middleware/cors.js";
 import { RouterAuth } from "./routes/user.route.js";
@@ -17,6 +21,6 @@ app.use(corsMiddleware());
 app.use("/auth", RouterAuth);
 app.use("/tasks", RouterTask);
 
-app.get("/", (res: Response) => {
+app.get("/", (_req: Request, res: Response) => {
   res.send("Servidor de tareas corriendo");
 });
