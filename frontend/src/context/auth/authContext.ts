@@ -10,7 +10,7 @@ interface AuthContextProps {
   login: (data: LoginUser) => Promise<void>;
   logout: () => Promise<void>;
   clearErrors: () => void;
-  initialUsers: () => void;
+  initialUsers: () => React.ReactNode;
 }
 
 export const AuthContext = createContext<AuthContextProps | undefined>(
