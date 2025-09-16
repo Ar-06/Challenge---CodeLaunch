@@ -15,6 +15,3 @@ export type PublicUser = {
   email: string;
 };
 
-export type AuthResponse = {
-  user: PublicUser;
-};

@@ -21,7 +21,7 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<PublicUser | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setErrors([]);
 
       const res = await registerRequest(data);
-      setUser(res.data.user);
+      setUser(res.data);
       setIsAuthenticated(true);
       navigate("/home");
       toast.success({ text: "¡Registro exitoso! Bienvenido 😎" });
@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setErrors([]);
 
       const res = await loginRequest(data);
-      setUser(res.data.user);
+      setUser(res.data);
       setIsAuthenticated(true);
       navigate("/home");
       toast.success({ text: "Bienvenido de nuevo 😎" });

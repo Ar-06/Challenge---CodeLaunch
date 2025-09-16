@@ -1,5 +1,4 @@
 import type {
-  AuthResponse,
   LoginUser,
   PublicUser,
   RegisterUser,
@@ -7,10 +6,10 @@ import type {
 import axios from "./axiosAuth";
 
 export const registerRequest = (user: RegisterUser) =>
-  axios.post<AuthResponse>("/register", user);
+  axios.post("/register", user);
 
 export const loginRequest = (user: LoginUser) =>
-  axios.post<AuthResponse>("/login", user);
+  axios.post("/login", user);
 
 export const logoutRequest = () => axios.post("/logout");
 

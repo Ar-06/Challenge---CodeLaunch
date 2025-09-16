@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { TaskProvider } from "../context/tasks/TaskProvider";
 import { AuthProvider } from "../context/auth/AuthProvider";
+import { TaskProvider } from "../context/tasks/TaskProvider";
 import { AuthPage } from "../pages/AuthPage";
 import { HomePage } from "../pages/Home";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 export const AppRoutes = () => {
   return (
@@ -11,7 +12,9 @@ export const AppRoutes = () => {
         <TaskProvider>
           <Routes>
             <Route path="/" element={<AuthPage />} />
-            <Route path="/home" element={<HomePage />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/home" element={<HomePage />} />
+            </Route>
           </Routes>
         </TaskProvider>
       </AuthProvider>
