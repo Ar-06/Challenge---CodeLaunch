@@ -2,7 +2,7 @@ import cors from "cors";
 
 const ACCEPTED_ORIGIN = [
   "http://localhost:5173/",
-  "https://challenge-code-launch.vercel.app",
+  "https://challenge-code-launch.vercel.app/",
 ];
 
 interface CorsConfig {
