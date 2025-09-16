@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import type { NextFunction, Request, Response } from "express";
-import { verifiyAccessToken } from "../lib/jwt.ts";
+import { verifiyAccessToken } from "../lib/jwt.js";
 
 dotenv.config();
 
