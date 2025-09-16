@@ -1,9 +1,9 @@
 import cookieParser from "cookie-parser";
 import express, { type Application, type Response } from "express";
 import morgan from "morgan";
-import { corsMiddleware } from "./middleware/cors.ts";
-import { RouterAuth } from "./routes/user.route.ts";
-import { RouterTask } from "./routes/task.route.ts";
+import { corsMiddleware } from "./middleware/cors.js";
+import { RouterAuth } from "./routes/user.route.js";
+import { RouterTask } from "./routes/task.route.js";
 
 export const app: Application = express();
 

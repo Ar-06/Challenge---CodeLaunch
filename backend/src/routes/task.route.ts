@@ -1,13 +1,13 @@
 import { Router } from "express";
-import { authRequires } from "../middleware/validateToken.ts";
-import { validateSchema } from "../middleware/validateSchema.ts";
-import { registerTaskSchema } from "../schemas/task.schema.ts";
+import { authRequires } from "../middleware/validateToken.js";
+import { validateSchema } from "../middleware/validateSchema.js";
+import { registerTaskSchema } from "../schemas/task.schema.js";
 import {
   createTask,
   deleteTask,
   getTasks,
   updateTask,
-} from "../controllers/task.controller.ts";
+} from "../controllers/task.controller.js";
 
 export const RouterTask: ReturnType<typeof Router> = Router();
 

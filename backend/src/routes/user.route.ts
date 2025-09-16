@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { validateSchema } from "../middleware/validateSchema.ts";
+import { validateSchema } from "../middleware/validateSchema.js";
 import {
   login,
   logout,
   register,
   verifyToken,
-} from "../controllers/user.controller.ts";
-import { registerSchema, loginSchema } from "../schemas/auth.schema.ts";
+} from "../controllers/user.controller.js";
+import { registerSchema, loginSchema } from "../schemas/auth.schema.js";
 
 export const RouterAuth: ReturnType<typeof Router> = Router();
 

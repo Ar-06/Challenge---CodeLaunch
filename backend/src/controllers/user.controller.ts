@@ -1,8 +1,8 @@
-import User from "../models/user.model.ts";
+import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
-import { createAccessToken, verifiyAccessToken } from "../lib/jwt.ts";
+import { createAccessToken, verifiyAccessToken } from "../lib/jwt.js";
 import type { Request, Response } from "express";
-import type { RegisterBody } from "../types/user.types.ts";
+import type { RegisterBody } from "../types/user.types.js";
 
 export const register = async (
   req: Request<{}, {}, RegisterBody>,
